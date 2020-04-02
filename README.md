@@ -43,7 +43,9 @@ import 'keyboard/view_keyboard.dart';
 ```
 
 - 注意事项：
+
 1、用showModalBottomSheet打开键盘，isScrollControlled值必须为true,当为false时自生高度被限制，具体看源码，
+
 2、backgroundColor: Colors.transparent,需给showModalBottomSheet设置背景透明
 
 #### CustomKeyboard参数说明
