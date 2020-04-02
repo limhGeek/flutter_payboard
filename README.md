@@ -42,6 +42,10 @@ import 'keyboard/view_keyboard.dart';
 
 ```
 
+- 注意事项：
+1、用showModalBottomSheet打开键盘，isScrollControlled值必须为true,当为false时自生高度被限制，具体看源码，
+2、backgroundColor: Colors.transparent,需给showModalBottomSheet设置背景透明
+
 #### CustomKeyboard参数说明
 
 序号|参数|说明
@@ -51,3 +55,6 @@ import 'keyboard/view_keyboard.dart';
 3 |autoBack |自动返回，如果为true,则输入为pwdLehgth长度后自动触发onResult 返回输入值
 4 |onKeyDown |点击每个数字键以及关闭按钮的回调方法，用keyEvent.key接收键值，keyEvent.isClose判断是否触发关闭按钮
 5 |onResult  |点击确定或者autoBack为true，输入完成后触发回调，返回输入结果
+
+- 参考项目：
+[https://juejin.im/post/5c10ef31e51d452e2c698673](https://juejin.im/post/5c10ef31e51d452e2c698673)
