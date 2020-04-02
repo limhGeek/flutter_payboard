@@ -54,13 +54,15 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.transparent,
       builder: (builder) {
         return CustomKeyboard(
-          (keyEvent) {
+          keyHeight: 46,
+          autoBack: false,
+          pwdLength: 6,
+          onKeyDown: (keyEvent) {
             if (keyEvent.isClose()) {
               Navigator.pop(context);
             }
+            debugPrint(keyEvent.key);
           },
-          keyHeight: 46,
-          autoBack: true,
           onResult: (data) {
             BotToast.showText(text: "密码：$data");
           },

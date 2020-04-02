@@ -6,13 +6,18 @@ import 'key_event.dart';
 import 'keyboard_item.dart';
 
 class CustomKeyboard extends StatefulWidget {
-  final callback;
+  final onKeyDown;
   final onResult;
   final autoBack;
+  final pwdLength;
   final double keyHeight;
 
-  const CustomKeyboard(this.callback,
-      {this.onResult, this.autoBack = false, this.keyHeight = 48});
+  const CustomKeyboard(
+      {this.onKeyDown,
+      this.onResult,
+      this.autoBack = false,
+      this.pwdLength = 6,
+      this.keyHeight = 48});
 
   @override
   _CustomKeyboardState createState() => _CustomKeyboardState();
@@ -74,7 +79,7 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
           Align(
             child: IconButton(
               icon: Icon(Icons.close, size: 28),
-              onPressed: () => widget.callback(KeyDownEvent("close")),
+              onPressed: () => widget.onKeyDown(KeyDownEvent("close")),
             ),
             alignment: Alignment.topRight,
           ),
@@ -95,7 +100,7 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
                   width: 250,
                   height: 40,
                   margin: EdgeInsets.only(top: 10),
-                  child: CustomPwdField(data),
+                  child: CustomPwdField(data, widget.pwdLength),
                 )
               ],
             ),
@@ -115,7 +120,7 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
           return KeyboardItem(
             keyHeight: widget.keyHeight,
             text: item,
-            callback: (val) => onKeyDown(context, item),
+            callback: () => onKeyDown(context, item),
           );
         }).toList(),
       ),
@@ -132,15 +137,16 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
         data = data.substring(0, data.length - 1);
       });
     }
-    if (data.length >= 6) {
+    if (data.length >= widget.pwdLength) {
       return;
     }
     setState(() {
       if ("del" != text && text != "commit") {
         data += text;
+        widget.onKeyDown(KeyDownEvent(text));
       }
     });
-    if (data.length == 6 && widget.autoBack) {
+    if (data.length == widget.pwdLength && widget.autoBack) {
       widget.onResult(data);
     }
   }

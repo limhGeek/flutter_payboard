@@ -3,28 +3,27 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CustomPwdField extends StatelessWidget {
-  String data;
+  final String data;
+  final int pwdLength;
 
-  CustomPwdField(this.data);
+  CustomPwdField(this.data, this.pwdLength);
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: PwdField(data),
+      painter: PwdField(data, pwdLength),
     );
   }
 }
 
 class PwdField extends CustomPainter {
   String data;
+  int pwdLength;
 
-  PwdField(this.data);
+  PwdField(this.data, this.pwdLength);
 
   @override
   void paint(Canvas canvas, Size size) {
-    // 密码长度
-    int PWD_LENGTH = 6;
-
     // 密码画笔
     Paint mPwdPaint;
     Paint mRectPaint;
@@ -41,8 +40,9 @@ class PwdField extends CustomPainter {
     mRectPaint.style = PaintingStyle.stroke;
     canvas.drawRRect(r, mRectPaint);
 
-    var per = size.width / PWD_LENGTH;
+    var per = size.width / pwdLength;
     var offsetX = per;
+    //画密码框框
     while (offsetX < size.width) {
       canvas.drawLine(
           Offset(offsetX, 0.0), Offset(offsetX, size.height), mRectPaint);
@@ -53,6 +53,7 @@ class PwdField extends CustomPainter {
     var radio = per / 8;
 
     mPwdPaint.style = PaintingStyle.fill;
+    //画密码点点
     if (null != data && data.length > 0) {
       for (int i = 0; i < data.length && i < 6; i++) {
         canvas.drawArc(

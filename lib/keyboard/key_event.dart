@@ -4,7 +4,5 @@ class KeyDownEvent {
 
   KeyDownEvent(this.key);
 
-  bool isDelete() => this.key == "del";
-
   bool isClose() => this.key == "close";
 }

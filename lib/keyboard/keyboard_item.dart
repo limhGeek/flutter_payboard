@@ -13,14 +13,9 @@ class KeyboardItem extends StatefulWidget {
 }
 
 class ButtonState extends State<KeyboardItem> {
-  var backMethod;
   double keyHeight = 44;
   double txtSize = 18;
   String text;
-
-  void onTap() {
-    widget.callback("$backMethod");
-  }
 
   @override
   void initState() {
@@ -48,7 +43,7 @@ class ButtonState extends State<KeyboardItem> {
       height: keyHeight,
       width: _screenWidth / 3,
       child: OutlineButton(
-        onPressed: onTap,
+        onPressed: widget.callback,
         child: Text(
           text,
           style: TextStyle(
